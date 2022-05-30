@@ -6,7 +6,7 @@ const Navbar = ({ children }) => {
         <div className="drawer drawer-end">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
-                <div className="w-full navbar bg-base-100 px-20">
+                <div className="w-full navbar bg-base-100 lg:px-20 fixed top-0 z-50">
                     <div className="flex-1 px-2 mx-2">
                         <Link to="/">CLean Co.</Link>
                     </div>
