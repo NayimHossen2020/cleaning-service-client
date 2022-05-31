@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import useAdmin from '../Hooks/useAdmin';
 
 const Navbar = ({ children }) => {
     const [dark, setDark] = useState(false);
+    const { pathname } = useLocation();
+    const [admin] = useAdmin();
+
     return (
         <div className="drawer drawer-end" data-theme={dark ? "dark" : "light"}>
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
                 <div className="w-full navbar bg-base-100 lg:px-20 fixed top-0 z-50">
+                    {pathname.includes('/dashboard') &&
+                        <label for="my-drawer-2" tabIndex="0" className="btn btn-ghost lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                        </label>
+                    }
                     <div className="flex-1 px-2 mx-2">
                         <Link to="/">CLean Co.</Link>
                     </div>
@@ -19,6 +28,7 @@ const Navbar = ({ children }) => {
                     <div className="flex-none hidden lg:block">
                         <ul className="menu menu-horizontal gap-x-2">
                             <li><NavLink className='rounded-lg' to="home">Home</NavLink></li>
+                            {admin && <li><NavLink className='rounded-lg' to="dashboard">Dashboard</NavLink></li>}
                             <li><NavLink className='rounded-lg' to="about">About</NavLink></li>
                             <li><NavLink className='rounded-lg' to="services">Services</NavLink></li>
                             <li><NavLink className='rounded-lg' to="contact">Contact</NavLink></li>
@@ -45,15 +55,16 @@ const Navbar = ({ children }) => {
                 <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
                 <ul className="menu p-4 overflow-y-auto sm:w-[70%] bg-base-100">
                     <li><NavLink className='rounded-lg' to="home">Home</NavLink></li>
+                    {admin && <li><NavLink className='rounded-lg' to="dashboard/add-service">Dashboard</NavLink></li>}
                     <li><NavLink className='rounded-lg' to="about">About</NavLink></li>
                     <li><NavLink className='rounded-lg' to="services">Services</NavLink></li>
                     <li><NavLink className='rounded-lg' to="contact">Contact</NavLink></li>
                     <li><NavLink className='rounded-lg' to="login">Login</NavLink></li>
-                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
-                        <div class="collapse-title text-xl font-medium">
+                    <div tabIndex="0" className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+                        <div className="collapse-title text-xl font-medium">
                             Book Now
                         </div>
-                        <div class="collapse-content">
+                        <div className="collapse-content">
                             <li><Link to="">Item 1</Link></li>
                             <li><Link to="">Item 2</Link></li>
                         </div>
